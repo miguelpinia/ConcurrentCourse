@@ -1,7 +1,7 @@
 package unam.mx.concurrent.mutex;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 /**
  *
@@ -18,12 +18,10 @@ public class PetersonLockTest {
 
     private final PetersonLock instance = new PetersonLock();
 
-    public PetersonLockTest() {
-    }
-
-    @Test
+    @RepeatedTest(100)
     public void testPetersonLock() throws InterruptedException {
         System.out.println("Executing test for the Peterson's Lock");
+        System.out.println("Available processors: " + THREADS);
         long time = System.currentTimeMillis();
         ThreadID.reset();
         for (int i = 0; i < THREADS; i++) {
