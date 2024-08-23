@@ -33,7 +33,16 @@ public class LockOneTest {
         System.out.println("Parallel execution");
         ThreadID.reset();
         for (int i = 0; i < THREADS; i++) {
-            threads[i] = new MyThread();
+            threads[i] = new Thread(() -> {
+                for (int t = 0; t < PER_THREAD; t++) {
+                    instance.lock();
+                    try {
+                        counter = counter + 1;
+                    } finally {
+                        instance.unlock();
+                    }
+                }
+            });
         }
         for (int i = 0; i < THREADS; i++) {
             threads[i].start();
@@ -42,21 +51,6 @@ public class LockOneTest {
             threads[i].join(TIMEOUT);
         }
         Assertions.assertEquals(COUNT, counter);
-    }
-
-    class MyThread extends Thread {
-
-        @Override
-        public void run() {
-            for (int i = 0; i < PER_THREAD; i++) {
-                instance.lock();
-                try {
-                    counter = counter + 1;
-                } finally {
-                    instance.unlock();
-                }
-            }
-        }
     }
 
 }
