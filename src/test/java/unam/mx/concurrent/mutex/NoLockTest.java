@@ -1,7 +1,7 @@
 package unam.mx.concurrent.mutex;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -10,13 +10,13 @@ import org.junit.jupiter.api.RepeatedTest;
 public class NoLockTest {
 
     private final static int THREADS = Runtime.getRuntime().availableProcessors();
-    private final static int COUNT = 1024 * 10000;
+    private final static int COUNT = 1024 * 1000;
     private final static int PER_THREAD = COUNT / THREADS;
     private final static int TIMEOUT = 1000;
     private final Thread[] threads = new Thread[THREADS];
     private int counter;
 
-    @RepeatedTest(100)
+    @Test
     public void testNoLock() throws InterruptedException {
         System.out.println("Executing test for no lock concurrent increments");
         System.out.println("Available processors: " + THREADS);

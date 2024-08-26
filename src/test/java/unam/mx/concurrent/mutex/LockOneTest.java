@@ -12,7 +12,7 @@ public class LockOneTest {
     private final static int THREADS = 2;
     private final static int COUNT = 1024;
     private final static int PER_THREAD = COUNT / THREADS;
-    private final static int TIMEOUT = 10000;
+    private final static int TIMEOUT = 2000;
     private final Thread[] threads = new Thread[THREADS];
     private int counter = 0;
 
@@ -37,6 +37,7 @@ public class LockOneTest {
                 for (int t = 0; t < PER_THREAD; t++) {
                     instance.lock();
                     try {
+                        System.out.println("Who's doing work? " + ThreadID.get());
                         counter = counter + 1;
                     } finally {
                         instance.unlock();
